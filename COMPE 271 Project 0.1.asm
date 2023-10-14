@@ -2,7 +2,7 @@
 # Date:		October 2, 2023
 # Description:	Custom MIPS Snake Game
 # Iteration Version: Ver 0.2 - 1st Draft
-# Ver Description: Created,and Begun Work on Translating. Desciption subject to move into seperate directory readme
+# Ver Description: Added Bitmap Display Support. Began working on Snake Movement on display.
 
 .data 						# Global Variables to be established before Main/Child Functions.
 	frameBuffer: 	.space 0x80000		# Unit Width/Height in pixels would be set to 8 respectively.
