@@ -2,7 +2,7 @@
 # Date:		October 2, 2023
 # Description:	Custom MIPS Snake Game
 # Iteration Version: Ver 0.2 - 1st Draft
-# Ver Description: Added Bitmap Display Support. Began working on Snake Movement on display.
+# Ver Description: Created,and Begun Work on Translating. Desciption subject to move into seperate directory readme
 
 .data 						# Global Variables to be established before Main/Child Functions.
 	frameBuffer: 	.space 0x80000		# Unit Width/Height in pixels would be set to 8 respectively.
@@ -23,11 +23,11 @@
 	la 		$t0, frameBuffer	# Load Frame Buffer Address
 	li 		$t1, 8192		# Save 512*256 pixels
 	li 		$t2, 0x00d3d3d3		# Load the Gray Background Color
-l1:
+displayBackground:
 	sw 		$t2, 0($t0)
 	addi		$t0,$t0,4		# Increment/Move to next position in the bitmap display individually
 	addi		$t1,$t1,-1		# Decrement Number of Pixels
-	bnez		$t1,l1			# Until 8192 pixels have all been colored gray, repeat from child call.
+	bnez		$t1,displayBackground	# Until 8192 pixels have all been colored gray, repeat from child call.
 # Initialize Display [Borders]
 # Top Border
 	la 		$t0, frameBuffer
@@ -93,7 +93,7 @@ moveUp:
 	jal		updateSnake		# Sends information to update address call, updates the snake on the display and changes velocity.
 	# Jumps to address line to move the player's snake position, then exits the move branch.
 	jal		updatePlayerHead	
-	j		exitMove		
+	j		exitMove		# Jumps to the end so that the process may repeat again
 moveDown:
 	lw		$s3,0x0100ff00		# Green Pixel for when the player moves down
 	add		$a0,$s3,$zero		
